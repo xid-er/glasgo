@@ -8,6 +8,9 @@ def index(request):
 def about(request):
     return HttpResponse("Rango says here is the about page.")
 
+def log_in(request):
+    return render(request, 'glasgo/login.html')
+
 def register(request):
     # A boolean value to tell the template
     # whether the registration was successful.
@@ -23,7 +26,7 @@ def register(request):
         # if the two forms are both valid,
         # then save the user's form data to the database.
         if user_form.is_valid() and profile_form.is_valid():
-            
+
             user = user_form.save()
             user.set_password(user.password)
             user.save()
@@ -31,7 +34,7 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
 
-            
+
             # check whether the user provide a profile photo?
             # if yes, get it from the input form and put it in the UserProfile
             if 'picture' in request.FILES:
@@ -42,7 +45,7 @@ def register(request):
             # change it to be true, since the registration was successful.
             registered = True
         else:
-            
+
             # print the problem - mistakes or something wrong
             print(user_form.errors, profile_form.errors)
     else:
@@ -50,8 +53,8 @@ def register(request):
         # These forms will be blank, ready for user input.
         user_form = UserForm()
         profile_form = UserProfileForm()
-    
-    return render(request, 'rango/register.html',
+
+    return render(request, 'glasgo/register.html',
                   context={'user_form': user_form,
                            'profile_form': profile_form,
                            'registered': registered})

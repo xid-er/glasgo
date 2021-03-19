@@ -1,0 +1,55 @@
+.row{
+  padding-left: 4em;
+  padding-right: 4em;
+}
+.banner{
+  margin: auto;
+  text-align: center;
+  padding-top: 2em;
+}
+
+#logo{
+  font-family: Galindo;
+}
+
+h4{
+  font-style: italic;
+}
+
+.register-box{
+  margin: 0 auto;
+  /*margin-left: 20em;
+  margin-right: 20em;*/
+  width: 50%;
+  margin-top: 3em;
+  border: 2px solid;
+  text-align: center;
+}
+h3{
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.form-control:not(#age){
+  min-width: 9em;
+}
+#age{
+  min-width: 4em;
+}
+
+h3{
+  text-align: center;
+}
+.form-check{
+  margin: auto;
+  text-align: center;
+}
+.btn-primary{
+  margin: auto;
+  text-align: center;
+}
+#registerBtn{
+  margin: 0 auto;
+  display: block;
+  margin-top: 1em;
+}
