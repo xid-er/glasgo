@@ -6,3 +6,9 @@ def index(request):
 
 def about(request):
     return HttpResponse("Rango says here is the about page.")
+
+def log_in(request):
+    return HttpResponse("Login page")
+
+def sign_up(request):
+    return render(request, 'glasgo/signup.html')
