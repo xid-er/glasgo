@@ -1,3 +1,11 @@
+.row{
+  padding: 5em;
+}
+.banner{
+  margin: auto;
+}
+/*
+
 /* Sign Up Deploy */
 
 position: relative;
@@ -633,3 +641,4 @@ align-items: center;
 text-align: center;
 
 color: #000000;
+*/

@@ -12,11 +12,46 @@
     <title>Sign Up page</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div class="banner">
+      <h1>GlasGO</h1>
+      <h3>People Make Glasgow</h3>
+    </div>
+    
+    <h3>Sign Up</h1>
+
     <form action="index.html" method="post">
       <fieldset class="form-group">
-        <div class="form-group">
-          <input type="text" id="firstname" placeholder="First name">
+        <div class="form-group row">
+          <div class="form-group col-md-6">
+            <input class="form-control" type="text" id="firstname" placeholder="First name">
+          </div>
+          <div class="form-group col-md-6">
+            <input class="form-control" type="text" id="lastname" placeholder="Last name">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <input class="form-control" type="text" id="email" placeholder="Email address">
+        </div>
+        <div class="form-group row">
+          <input class="form-control" type="text" id="username" placeholder="Username">
+        </div>
+        <div class="form-group row">
+          <input class="form-control" type="text" id="password" placeholder="Create password">
+        </div>
+        <div class="form-group row">
+          <input class="form-control" type="text" id="password_check" placeholder="Repeat password">
+        </div>
+        <div class="form-group row">
+          <div class="form-group col-md-2">
+            <input class="form-control" type="text" id="age" placeholder="Age">
+          </div>
+          <div class="form-group col-md-4">
+            <input class="form-control" type="text" id="occupation" placeholder="Student">
+          </div>
+          <div class="form-group col-md-6">
+            <input class="form-control" type="text" id="occupation_details" placeholder="University">
+          </div>
         </div>
       </fieldset>
     </form>
