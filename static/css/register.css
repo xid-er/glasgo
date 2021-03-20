@@ -28,6 +28,7 @@ h4{
 h3{
   margin-top: 1em;
   margin-bottom: 1em;
+  text-align: center;
 }
 
 .form-control:not(#age){
@@ -36,14 +37,14 @@ h3{
 #age{
   min-width: 4em;
 }
-
-h3{
-  text-align: center;
-}
 .form-check{
   margin: auto;
   text-align: center;
 }
+.hidden{
+  display: none;
+}
+
 .btn-primary{
   margin: auto;
   text-align: center;
