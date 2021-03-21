@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from glasgo.forms import UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login
+from django.urls import reverse
+from django.shortcuts import redirect
 
 def index(request):
     return HttpResponse("Rango says hey there partner!\n<a href='/glasgo/about/'>About</a>")
@@ -9,7 +12,23 @@ def about(request):
     return HttpResponse("Rango says here is the about page.")
 
 def log_in(request):
-    return render(request, 'glasgo/login.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect(reverse('glasgo:index'))
+            else:
+                return HttpResponse("Your Glasgo account is disabled.")
+        else:
+            print(f"Invalid login details: {username}, {password}")
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'glasgo/login.html')
 
 def register(request):
     # A boolean value to tell the template
