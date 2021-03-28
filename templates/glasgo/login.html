@@ -5,28 +5,35 @@
   Log In
 {% endblock %}
 
+{% block side %}
+{% endblock %}
+
 {% block body %}
-<div class="register-box">
-  <h3>Log In</h3>
+  {% block index_banner %}
+  {% endblock %}
 
-  <form action="" method="post" class="container-fluid">
-    {% csrf_token %}
-    <fieldset class="form-group">
+  <div class="register-box">
+    <h3>Log In</h3>
 
-      <div class="form-group row">
-        <input class="form-control" type="text" id="username_login" placeholder="Username">
-      </div>
-      <div class="form-group row">
-        <input class="form-control" type="text" id="password_login" placeholder="Password">
-      </div>
+    <form action="" method="post" class="container-fluid">
+      {% csrf_token %}
+      <fieldset class="form-group">
 
-      <p><a href="{% url 'glasgo:register' %}">Not a member of GlasGO yet? Register here!</a></p>
+        <div class="form-group row">
+          <input class="form-control" type="text" id="username_login" placeholder="Username">
+        </div>
+        <div class="form-group row">
+          <input class="form-control" type="text" id="password_login" placeholder="Password">
+        </div>
 
-      <div class="form-group row">
-        <button id="loginBtn" class="btn btn-primary" type="submit" name="submit">Log In</button>
-      </div>
-    </div>
+        <p>Not a member of GlasGO yet? <a href="{% url 'glasgo:register' %}">Register here!</a></p>
 
-    </fieldset>
-  </form>
+        <div class="form-group row">
+          <button id="loginBtn" class="btn btn-primary" type="submit" name="submit">Log In</button>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+
 {% endblock %}

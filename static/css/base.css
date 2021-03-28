@@ -2,10 +2,16 @@
   padding-left: 4em;
   padding-right: 4em;
 }
-.banner{
+
+.auth.banner{
   margin: auto;
   text-align: center;
   padding-top: 2em;
+}
+
+.index_banner{
+  padding-top: 2em;
+  margin-left: 2em;
 }
 
 #logo{
@@ -54,3 +60,20 @@ h3{
   display: block;
   margin-top: 1em;
 }
+
+/* https://blog.hubspot.com/website/css-sidebar
+.side {
+width: 200px;
+position: -webkit-sticky; /* for Safari users
+position: sticky;
+top: 0px;
+float: right;
+}
+
+.side div {
+padding: 8px;
+font-size: 24px;
+display: block;
+}
+
+*/
