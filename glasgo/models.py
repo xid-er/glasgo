@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     # The additional attributes we wish to include.
-    #slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True)
     full_name = models.CharField(max_length=64)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
@@ -33,6 +33,7 @@ class Post(models.Model):
     user_name = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     # attributes
+    slug = models.SlugField(unique=True)
     post_date_time = models.DateTimeField(blank=True)
     post_title = models.CharField(max_length = 128)
     post_number = models.IntegerField(unique=True)

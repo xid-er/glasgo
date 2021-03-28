@@ -8,36 +8,63 @@ from rango.models import UserProfile, Post, Comment
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    return HttpResponse("Rango says hey there partner!\n<a href='/glasgo/about/'>About</a>")
+    context_dict = {}
+    recent_post_list = Post.objects.order_by('-post_date_time')
+    top_post_list = Post.objects.order_by('-likes')
+    context_dict['recent'] = recent_post_list
+    context_dict['top'] = top_post_list
+    return render(request, 'glasgo/index.html', context=context_dict)
 
 def about(request):
-    return HttpResponse("Rango says here is the about page.")
+    return render(request, 'glasgo/about.html')
 
 def contact(request):
-    pass
+    return render(request, 'glasgo/contact_us.html')
 
 @login_required
 def show_user_profile(request, user_profile_slug):
-    pass
+    # TODO get list of favorites once models updated
+    context_dict = {}
+    top_posts = Post.objects.filter(user_name=user_profile_slug).order_by('-likes')
+    recent_posts = Post.objects.filter(user_name=user_profile_slug).order_by('-post_date_time')
+    context_dict['recent'] = recent_posts
+    context_dict['top'] = top_posts
+
+    return render(request, 'glasgo/profile.html', context=context_dict)
 
 @login_required
 def edit_profile(request, user_profile_slug):
+    # TODO think about how to implement this
     pass
 
 @login_required
 def add_post(request):
-    pass
+    form = PostForm()
 
-@login_required
-def add_comment(request):
-    pass
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(reverse('glasgo:index'))
+        else:
+            print(form.errors)
+
+    return render(request, 'glasgo/make_post.html', {'form': form})
 
 def show_post(request, post_slug):
-    pass
+    context_dict = {}
 
-@login_required
-def logout(request):
-    pass
+    try:
+        post = Post.objects.get(slug=post_slug)
+        comments = Comment.object.filter(post=post)
+        context_dict['post'] = post
+        context_dict['comments'] = comments
+    except Post.DoesNotExist:
+        context_dict['post'] = None
+        context_dict['comments'] = None
+
+    return render(request, 'glasgo/view_post.html', context=context_dict)
 
 def log_in(request):
     if request.method == 'POST':
