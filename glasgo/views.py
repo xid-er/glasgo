@@ -4,7 +4,7 @@ from glasgo.forms import UserForm, UserProfileForm, PostForm, CommentForm
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from django.shortcuts import redirect
-from rango.models import UserProfile, Post, Comment
+from glasgo.models import UserProfile, Post, Comment
 from django.contrib.auth.decorators import login_required
 
 def index(request):

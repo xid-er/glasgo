@@ -7,7 +7,7 @@ from django.template.defaultfilters import slugify
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
+
     # The additional attributes we wish to include.
     slug = models.SlugField(unique=True)
     first_name = models.CharField(max_length=64, unique=True, primary_key=True)
@@ -21,7 +21,8 @@ class UserProfile(models.Model):
 
     # user can like/favorite many posts
     # and also posts can be liked/favorited by many users
-    posts = models.ManyToManyField(Post)
+    # posts = models.ManyToManyField(Post)
+    # commented out because causes error (Karlis)
 
     def __str__(self):
         return self.user.username
@@ -63,4 +64,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment_content
-
