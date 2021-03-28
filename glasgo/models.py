@@ -10,13 +10,18 @@ class UserProfile(models.Model):
     
     # The additional attributes we wish to include.
     slug = models.SlugField(unique=True)
-    full_name = models.CharField(max_length=64)
+    first_name = models.CharField(max_length=64, unique=True, primary_key=True)
+    last_name = models.CharField(max_length=64, unique=True, blank=True)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    age = models.IntegerField(blank=True)
+    age = models.PositiveIntegerField(blank=True)
     occupation = models.CharField(max_length=32, blank=True)
     university = models.CharField(max_length=32, blank=True)
     company = models.CharField(max_length=32, blank=True)
+
+    # user can like/favorite many posts
+    # and also posts can be liked/favorited by many users
+    posts = models.ManyToManyField(Post)
 
     def __str__(self):
         return self.user.username
@@ -40,7 +45,7 @@ class Post(models.Model):
     post_type = models.CharField(max_length=64)
     post_content = models.CharField(max_length=2048)
     post_category = models.CharField(max_length=64)
-    likes = models.IntegerField(default=0)
+    likes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.post_content
