@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -8,6 +9,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     # The additional attributes we wish to include.
+    #slug = models.SlugField(unique=True)
+    full_name = models.CharField(max_length=64)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     age = models.IntegerField(blank=True)
@@ -17,6 +20,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+   # def save(self, *args, **kwargs):
+   #     self.slug = slugify(self.name)
+   #     super(UserProfile, self).save(*args, **kwargs)
 
 
 class Post(models.Model):
@@ -49,5 +56,5 @@ class Comment(models.Model):
     comment_content = models.CharField(max_length=1024)
 
     def __str__(self):
-        return.self.comment_content
+        return self.comment_content
 

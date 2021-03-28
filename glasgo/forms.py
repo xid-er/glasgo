@@ -1,6 +1,15 @@
 from django import forms
 from django.contrib.auth.models import User
-from glasgo.models import UserProfile
+from glasgo.models import UserProfile, Post, Comment
+
+
+class PostForm(forms.ModelForm):
+    # TODO
+    pass
+
+class CommentForm(forms.ModelForm):
+    # TODO
+    pass
 
 
 class UserForm(forms.ModelForm):
@@ -13,4 +22,4 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('website', 'picture',)
+        fields = ('full_name', 'website', 'picture', 'age', 'occupation', 'university', 'company')

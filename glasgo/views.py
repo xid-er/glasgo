@@ -1,15 +1,43 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from glasgo.forms import UserForm, UserProfileForm
+from glasgo.forms import UserForm, UserProfileForm, PostForm, CommentForm
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from django.shortcuts import redirect
+from rango.models import UserProfile, Post, Comment
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return HttpResponse("Rango says hey there partner!\n<a href='/glasgo/about/'>About</a>")
 
 def about(request):
     return HttpResponse("Rango says here is the about page.")
+
+def contact(request):
+    pass
+
+@login_required
+def show_user_profile(request, user_profile_slug):
+    pass
+
+@login_required
+def edit_profile(request, user_profile_slug):
+    pass
+
+@login_required
+def add_post(request):
+    pass
+
+@login_required
+def add_comment(request):
+    pass
+
+def show_post(request, post_slug):
+    pass
+
+@login_required
+def logout(request):
+    pass
 
 def log_in(request):
     if request.method == 'POST':
