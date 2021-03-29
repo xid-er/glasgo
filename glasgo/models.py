@@ -7,11 +7,12 @@ from django.template.defaultfilters import slugify
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
+    
     # The additional attributes we wish to include.
     slug = models.SlugField(unique=True)
-    first_name = models.CharField(max_length=64, unique=True, primary_key=True)
-    last_name = models.CharField(max_length=64, unique=True, blank=True)
+    first_name = models.CharField(max_length=64, unique=False, primary_key=True)
+    last_name = models.CharField(max_length=64, unique=False, blank=True)
+    password = models.CharField(max_length=16, unique=True, blank=False)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     age = models.PositiveIntegerField(blank=True)
@@ -19,17 +20,17 @@ class UserProfile(models.Model):
     university = models.CharField(max_length=32, blank=True)
     company = models.CharField(max_length=32, blank=True)
 
+
     # user can like/favorite many posts
     # and also posts can be liked/favorited by many users
-    # posts = models.ManyToManyField(Post)
-    # commented out because causes error (Karlis)
+    posts = models.ManyToManyField(Post)
 
     def __str__(self):
         return self.user.username
 
-   # def save(self, *args, **kwargs):
-   #     self.slug = slugify(self.name)
-   #     super(UserProfile, self).save(*args, **kwargs)
+   def save(self, *args, **kwargs):
+       self.slug = slugify(self.name)
+       super(UserProfile, self).save(*args, **kwargs)
 
 
 class Post(models.Model):
@@ -48,6 +49,11 @@ class Post(models.Model):
     post_category = models.CharField(max_length=64)
     likes = models.PositiveIntegerField(default=0)
 
+    def save(self, *args, **kwargs):
+        self.request_id = str(uuid.uuid4().int)
+        self.slug = slugify(self.request_id)
+        super(Post, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.post_content
 
@@ -62,5 +68,12 @@ class Comment(models.Model):
     comment_date_time = models.DateTimeField(blank=True)
     comment_content = models.CharField(max_length=1024)
 
+    
+    # Order the comments by leave comment time。
+    class Meta：
+        order = ['comment_date_time']
+
+
     def __str__(self):
         return self.comment_content
+
