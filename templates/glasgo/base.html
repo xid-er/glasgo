@@ -12,9 +12,11 @@
     </title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
   </head>
   <body>
@@ -38,11 +40,32 @@
     {% endblock %}
 
     {% block side %}
-      <div class="sidebar-sticky">
-        {% block make_post %}
-          <button id="addPostBtn" class="btn btn-primary"><a href="{% url 'glasgo:add_post' %}">Add a New Post!</a></button>
-        {% endblock %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2 d-none d-md-block offset-sm-10 sidebar">
+          <div class="sidebar-sticky">
+            {% block make_post %}
+              <a id="addPostBtn" class="btn btn-primary"  href="{% url 'glasgo:add_post' %}">Add a New Post!</a>
+            {% endblock %}
+            <br>
+            <br>
+            <label>Categories:</label>
+            <br>
+            <input type="checkbox" checked data-toggle="toggle" data-on="Events"
+              data-off="Events" data-onstyle="danger" data-style="ios">
+            <br>
+            <input type="checkbox" checked data-toggle="toggle" data-on="Cool Spots"
+              data-off="Cool Spots" data-style="ios">
+            <br>
+            <input class="btn-block" type="checkbox" checked data-toggle="toggle" data-on="Shots of Glasgow"
+              data-off="Shots of Glasgow" data-onstyle="success" data-style="ios">
+            <br>
+            <input type="checkbox" checked data-toggle="toggle" data-on="Other"
+              data-off="Other" data-onstyle="warning" data-style="ios">
+          </div>
+        </div>
       </div>
+    </div>
 
     {% endblock %}
 

@@ -14,4 +14,9 @@ $(document).ready(function (){
       }
       $('.dropdown-toggle').html(this.text);
   });
+  $(function() {
+    $('#toggle-event').change(function() {
+      $('#console-event').html('Toggle: ' + $(this).prop('checked'))
+    })
+  })
 });

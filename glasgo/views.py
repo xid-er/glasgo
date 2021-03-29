@@ -49,15 +49,15 @@ def add_post(request):
             return redirect(reverse('glasgo:index'))
         else:
             print(form.errors)
-
-    return render(request, 'glasgo/make_post.html', {'form': form})
+    else:
+        return render(request, 'glasgo:add_post', {'form': form})
 
 def show_post(request, post_slug):
     context_dict = {}
 
     try:
         post = Post.objects.get(slug=post_slug)
-        comments = Comment.object.filter(post=post)
+        comments = Comment.objects.filter(post=post).order_by('comment_date_time')
         context_dict['post'] = post
         context_dict['comments'] = comments
     except Post.DoesNotExist:
@@ -66,7 +66,7 @@ def show_post(request, post_slug):
 
     return render(request, 'glasgo/view_post.html', context=context_dict)
 
-def log_in(request):
+def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -83,7 +83,7 @@ def log_in(request):
             print(f"Invalid login details: {username}, {password}")
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'glasgo/login.html')
+        return render(request, 'glasgo:login')
 
 def register(request):
     # A boolean value to tell the template
