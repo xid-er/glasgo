@@ -5,6 +5,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Icon at https://www.pinterest.co.uk/pin/318700111115833983/ by Matthew Wiard -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
     <title>
       {% block title %}
         GlasGO
@@ -34,9 +36,14 @@
       <div class="index_banner">
         <b><h1 id="logo">GlasGO</h1></b>
         <p><a href="{% url 'glasgo:about' %}">About</a></p>
+
+        <div class="user_corner">
+          <a href="{% url 'glasgo:login' %}"><img src="{% static 'images/person-circle.svg' %}" alt="Bootstrap" width="32" height="32"></a>
+          <a href="{% url 'glasgo:login' %}"><p>Log In</p></a>
+        </div>
       </div>
 
-      </div>
+    </div>
     {% endblock %}
 
     {% block side %}

@@ -11,7 +11,7 @@
 
 .index_banner{
   padding-top: 2em;
-  margin-left: 2em;
+  padding-left: 2em;
 }
 
 #logo{
@@ -74,6 +74,12 @@ padding: 8px;
 font-size: 24px;
 display: block;
 float: right;
+}
+
+.user_corner{
+  position: fixed;
+  top: 4px;
+  right: 4px;
 }
 
 .toggle.ios, .toggle-on.ios, .toggle-off.ios {
