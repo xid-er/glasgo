@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from glasgo.forms import UserForm, UserProfileForm, PostForm, CommentForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from glasgo.models import UserProfile, Post, Comment
-from django.contrib.auth.decorators import login_required
+
+from glasgo.forms import UserForm, UserProfileForm, PostForm, CommentForm
 
 def index(request):
     context_dict = {}
@@ -41,14 +42,14 @@ def edit_profile(request, user_profile_slug):
             profile_form.save()
             messages.success(request, f'Your account has been updated!')
             return redirect('my_profile')
-        
+
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = UserProfileUpdateForm(instance=request.user.profile)
     context = {'user_form': user_form, 'profile_form': profile_form, }
 
-    return render(request,'glasgo/edit_profile.html', context)            
-        
+    return render(request,'glasgo/edit_profile.html', context)
+
 
 @login_required
 def add_post(request):
@@ -96,6 +97,11 @@ def login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'glasgo/login.html')
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('glasgo:index'))
 
 def register(request):
     # A boolean value to tell the template

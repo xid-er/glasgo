@@ -22,7 +22,46 @@
     <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
   </head>
   <body>
+    {% block index_banner %}
     <div class="container-fluid">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <img src="{% static 'images/g-logo.png' %}" alt="GlasGO logo" width="32" height="32">
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" id="top" class="nav-link px-2 link-secondary">Top</a></li>
+          <li><a href="#" id="recent" class="nav-link px-2 link-dark">Recent</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+          {% if user.is_authenticated %}
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a class="nav-link" href="{% url 'glasgo:logout' %}">Logout</a></li>
+          </ul>
+          {% else %}
+          <ul class="nav col-md-auto text-end">
+            <li><a href="{% url 'glasgo:login' %}"><img src="{% static 'images/person-circle.svg' %}" alt="Account" width="32" height="32"></a></li>
+            <li><a href="{% url 'glasgo:login' %}">Login</a></li>
+          </ul>
+          {% endif %}
+        </div>
+      </header>
+    </div>
+    {% endblock %}
+
+    <div class="container-fluid">
+      <div class="index_banner row">
+        <div class="col-md-2">
+          <b><h1 id="logo">GlasGO</h1></b>
+          <p class=""><a href="{% url 'glasgo:about' %}">About</a></p>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+
+      </div>
+    </div>
 
     {% block auth_logo %}
       <div class="auth banner">
@@ -30,19 +69,6 @@
         <h4>People Make Glasgow</h4>
       </div>
     {% endblock %}
-
-    {% block index_banner %}
-      <div class="index_banner">
-        <b><h1 id="logo">GlasGO</h1></b>
-        <p><a href="{% url 'glasgo:about' %}">About</a></p>
-
-        <div class="user_corner">
-          <a href="{% url 'glasgo:login' %}"><img src="{% static 'images/person-circle.svg' %}" alt="Bootstrap" width="32" height="32"></a>
-          <a href="{% url 'glasgo:login' %}"><p>Log In</p></a>
-        </div>
-      </div>
-    {% endblock %}
-    </div>
 
     {% block side %}
     <div class="container-fluid">

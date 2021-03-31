@@ -76,10 +76,8 @@ display: block;
 float: right;
 }
 
-.user_corner{
-  position: fixed;
-  top: 4px;
-  right: 4px;
+.auth .banner{
+  display: inline;
 }
 
 .toggle.ios, .toggle-on.ios, .toggle-off.ios {
