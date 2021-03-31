@@ -26,6 +26,27 @@ def populate():
          'password': 'events12345',
          'occupation': 'company'},
     ]
+    
+    # not sure if the implemented lists of dictionaries is correct.
+    # feel free to modify it.
+    post_requests = [
+        {'title': 'UofG looks like Hogwarts in the snow',
+         'post_category': 'image',
+         'post_number': 1
+         'likes':42,
+         },
+        {'title': 'Hot Milk is coming to Glasgow on June 14th.
+         'post_category': 'text',
+         'post_number': 2,
+         'likes':64
+         },
+        {'title': "There's new cafe opening up on Dumbarton"
+         'post_category': 'video',
+         'post_number': 3,
+         'likes':128
+         },
+         
+        
 
     # still need lists of dictionaries
 
