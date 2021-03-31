@@ -4,12 +4,17 @@ from glasgo.models import UserProfile, Post, Comment
 
 
 class PostForm(forms.ModelForm):
-    # TODO
-    pass
+    # It is for posting a new post by any user.
+    class Meta:
+        model = Post
+        fields = ['post_title', 'post_content']
 
 class CommentForm(forms.ModelForm):
-    # TODO
-    pass
+    
+    class Meta:
+        model = Comment
+        fields = ['comment_content']
+
 
 
 class UserForm(forms.ModelForm):
@@ -17,9 +22,23 @@ class UserForm(forms.ModelForm):
     # describes additional properties about the particular class to which it belongs
     class Meta:
         model = User
-        fields = ('username', 'email', 'password',)
+        fields = ['username', 'email', 'password']
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('first_name', 'last_name', 'website', 'picture', 'age', 'occupation', 'university', 'company')
+        fields = ['first_name', 'last_name', 'website', 'picture', 'age', 'occupation', 'university', 'company']
+
+# The form is for user to edit their email
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+# The form is for user to edit their profile
+class UserProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['picture', 'first_name', 'age', 'occupation', 'university', 'company']

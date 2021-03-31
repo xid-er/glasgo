@@ -33,7 +33,22 @@ def show_user_profile(request, user_profile_slug):
 @login_required
 def edit_profile(request, user_profile_slug):
     # TODO think about how to implement this
-    pass
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = UserProfileUpdateForm(request.POST, request.FILES, instance=rquest.user.profile)
+        if user_form.is_Valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('my_profile')
+        
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = UserProfileUpdateForm(instance=request.user.profile)
+    context = {'user_form': user_form, 'profile_form': profile_form, }
+
+    return render(request,'glasgo/edit_profile.html', context)            
+        
 
 @login_required
 def add_post(request):
