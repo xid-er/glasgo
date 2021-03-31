@@ -24,7 +24,6 @@
   <body>
     <div class="container-fluid">
 
-
     {% block auth_logo %}
       <div class="auth banner">
         <strong><h1 id="logo">GlasGO</h1></strong>
@@ -42,9 +41,8 @@
           <a href="{% url 'glasgo:login' %}"><p>Log In</p></a>
         </div>
       </div>
-
-    </div>
     {% endblock %}
+    </div>
 
     {% block side %}
     <div class="container-fluid">

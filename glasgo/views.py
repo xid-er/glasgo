@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from glasgo.forms import UserForm, UserProfileForm, PostForm, CommentForm
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
-from django.shortcuts import redirect
 from glasgo.models import UserProfile, Post, Comment
 from django.contrib.auth.decorators import login_required
 
@@ -21,7 +20,6 @@ def about(request):
 def contact(request):
     return render(request, 'glasgo/contact_us.html')
 
-@login_required
 def show_user_profile(request, user_profile_slug):
     # TODO get list of favorites once models updated
     context_dict = {}
@@ -46,18 +44,17 @@ def add_post(request):
 
         if form.is_valid():
             form.save(commit=True)
-            return redirect(reverse('glasgo:index'))
+            return redirect(reverse('glasgo/index.html'))
         else:
             print(form.errors)
     else:
-        return render(request, 'glasgo:add_post', {'form': form})
+        return render(request, 'glasgo/add_post.html', {'form': form})
 
 def show_post(request, post_slug):
     context_dict = {}
-
     try:
         post = Post.objects.get(slug=post_slug)
-        comments = Comment.objects.filter(post=post).order_by('comment_date_time')
+        comments = Comment.objects.filter(post=post).order_by('-comment_date_time')
         context_dict['post'] = post
         context_dict['comments'] = comments
     except Post.DoesNotExist:
@@ -76,14 +73,14 @@ def login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('glasgo:index'))
+                return redirect(reverse('glasgo/index.html'))
             else:
                 return HttpResponse("Your Glasgo account is disabled.")
         else:
             print(f"Invalid login details: {username}, {password}")
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'glasgo:login')
+        return render(request, 'glasgo/login.html')
 
 def register(request):
     # A boolean value to tell the template
