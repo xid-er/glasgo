@@ -1,5 +1,6 @@
 {% extends 'glasgo/base.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block title %}
   Log In
@@ -20,10 +21,10 @@
       <fieldset class="form-group">
 
         <div class="form-group row">
-          <input class="form-control" type="text" id="username_login" placeholder="Username">
+          {{ user_form.username|as_crispy_field }}
         </div>
         <div class="form-group row">
-          <input class="form-control" type="text" id="password_login" placeholder="Password">
+          {{ user_form.password|as_crispy_field }}
         </div>
 
         <p>Not a member of GlasGO yet? <a href="{% url 'glasgo:register' %}">Register here!</a></p>

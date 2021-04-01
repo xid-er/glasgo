@@ -1,5 +1,6 @@
 {% extends 'glasgo/base.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block title %}
   Registration
@@ -7,6 +8,8 @@
 
 {% block side %}
 {% endblock %}
+
+<!-- https://simpleisbetterthancomplex.com/tutorial/2018/08/13/how-to-use-bootstrap-4-forms-with-django.html -->
 
 {% block body %}
   {% block index_banner %}
@@ -19,38 +22,31 @@
         <fieldset class="form-group">
           <div class="form-group row">
             <div class="form-group col-md-6">
-              <input class="form-control" type="text" id="firstname" placeholder="First name">
+              {{ user_form.first_name|as_crispy_field }}
             </div>
             <div class="form-group col-md-6">
-              <input class="form-control" type="text" id="lastname" placeholder="Last name">
+              {{ user_form.last_name|as_crispy_field }}
             </div>
           </div>
 
           <div class="form-group row">
-            <input class="form-control" type="text" id="email" placeholder="Email address">
+            {{ user_form.email|as_crispy_field }}
           </div>
           <div class="form-group row">
-            <input class="form-control" type="text" id="username" placeholder="Username">
+            {{ user_form.username|as_crispy_field }}
           </div>
           <div class="form-group row">
-            <input class="form-control" type="text" id="password" placeholder="Create password">
+            {{ user_form.password|as_crispy_field }}
           </div>
           <div class="form-group row">
-            <input class="form-control" type="text" id="password_check" placeholder="Repeat password">
+            {{ user_form.confirm_password|as_crispy_field }}
           </div>
           <div class="form-group row">
             <div class="form-group col-md-2">
-              <input class="form-control" type="text" id="age" placeholder="Age">
+              {{ profile_form.age|as_crispy_field }}
             </div>
-            <div class="dropdown col-md-4">
-              <button class="btn btn-default dropdown-toggle" type="button" id="occupationBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="button">
-                Employment
-              </button>
-              <div class="dropdown-menu" aria-labelledby="occupationBtn">
-                <a class="dropdown-item" value="0" href="#">Employed</a>
-                <a class="dropdown-item" value="1" href="#">Unemployed</a>
-                <a class="dropdown-item" value="2" href="#">Student</a>
-              </div>
+            <div class="form-group col-md-4">
+              {{ profile_form.occupation|as_crispy_field }}
             </div>
             <div class="form-group col-md-6 hidden">
               <input class="form-control" type="text" id="occupation_details" placeholder="Place of Employment">

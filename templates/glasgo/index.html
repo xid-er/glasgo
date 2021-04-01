@@ -1,9 +1,22 @@
 {% extends 'glasgo/base.html' %}
-{% load staticfiles %}
 
 {% block title %}
   GlasGO
 {% endblock %}
 
 {% block auth_logo %}
+{% endblock %}
+
+{% block favourites %}
+{% endblock %}
+
+{% block left_side %}
+<div class="container-fluid">
+  <div class="left_side row">
+    <div class="col-md-2">
+      <b><h1 id="logo">GlasGO</h1></b>
+      <p class=""><a href="{% url 'glasgo:about' %}">About</a></p>
+    </div>
+  </div>
+</div>
 {% endblock %}

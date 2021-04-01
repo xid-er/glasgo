@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -9,11 +8,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # The additional attributes we wish to include.
-    slug = models.SlugField(unique=True)
-    first_name = models.CharField(max_length=64, unique=False, primary_key=True)
-    last_name = models.CharField(max_length=64, unique=False, blank=True)
-    password = models.CharField(max_length=16, unique=True, blank=False)
-    website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     age = models.PositiveIntegerField(blank=True)
     occupation = models.CharField(max_length=32, blank=True)
@@ -29,7 +23,6 @@ class UserProfile(models.Model):
         return self.user.username
 
     def save(self, *args, **kwargs):
-       self.slug = slugify(self.name)
        super(UserProfile, self).save(*args, **kwargs)
 
 
@@ -40,7 +33,6 @@ class Post(models.Model):
     user_name = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     # attributes
-    slug = models.SlugField(unique=True)
     post_date_time = models.DateTimeField(blank=True)
     post_title = models.CharField(max_length = 128)
     post_type = models.CharField(max_length=64)
@@ -51,7 +43,6 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         self.request_id = str(uuid.uuid4().int)
-        self.slug = slugify(self.request_id)
         super(Post, self).save(*args, **kwargs)
 
     def __str__(self):

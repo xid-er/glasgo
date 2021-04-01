@@ -32,11 +32,15 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" id="top" class="nav-link px-2 link-secondary">Top</a></li>
           <li><a href="#" id="recent" class="nav-link px-2 link-dark">Recent</a></li>
+          {% block favourites %}
+          <li><a href="#" id="favourites" class="nav-link px-2 link-dark">Favourites</a></li>
+          {% endblock %}
         </ul>
 
         <div class="col-md-3 text-end">
           {% if user.is_authenticated %}
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a class="nav-link" href="{% url 'glasgo:show_user_profile({{ user.username }})' %}">{{ user.username }}</a></li>
             <li><a class="nav-link" href="{% url 'glasgo:logout' %}">Logout</a></li>
           </ul>
           {% else %}
@@ -50,18 +54,8 @@
     </div>
     {% endblock %}
 
-    <div class="container-fluid">
-      <div class="index_banner row">
-        <div class="col-md-2">
-          <b><h1 id="logo">GlasGO</h1></b>
-          <p class=""><a href="{% url 'glasgo:about' %}">About</a></p>
-        </div>
-        <div class="col-md-2">
-
-        </div>
-
-      </div>
-    </div>
+    {% block left_side %}
+    {% endblock %}
 
     {% block auth_logo %}
       <div class="auth banner">
