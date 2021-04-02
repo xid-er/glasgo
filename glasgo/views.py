@@ -79,7 +79,7 @@ def show_post(request, post_slug):
 
     return render(request, 'glasgo/view_post.html', context=context_dict)
 
-def login(request):
+def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -89,9 +89,9 @@ def login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('glasgo/index.html'))
+                return redirect(reverse('glasgo:index'))
             else:
-                return HttpResponse("Your Glasgo account is disabled.")
+                return HttpResponse("Your GlasGO account is disabled.")
         else:
             print(f"Invalid login details: {username}, {password}")
             return HttpResponse("Invalid login details supplied.")

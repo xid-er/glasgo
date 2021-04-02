@@ -1,22 +1,22 @@
 $(document).ready(function (){
-  $('.dropdown-item').click(function (){
+  $('#div_id_university').hide();
+  $('option').click(function (){
       var selected = this.text;
       if (selected == "Employed"){
-        //document.writeln("Employed!");
-        $('#occupation_details').attr('placeholder', 'Place of Employment');
-        $('.hidden').show();
+        $('#div_id_company').show();
+        $('#div_id_university').hide();
       }
       else if(selected == "Student"){
-        $('#occupation_details').attr('placeholder', 'University');
-        $('.hidden').show();
+        $('#div_id_company').hide();
+        $('#div_id_university').show();
       } else {
-        $('.hidden').hide();
+        $('#div_id_company').hide();
+        $('#div_id_university').hide();
       }
-      $('.dropdown-toggle').html(this.text);
   });
   $(function() {
     $('#toggle-event').change(function() {
       $('#console-event').html('Toggle: ' + $(this).prop('checked'))
     })
-  })
+  });
 });

@@ -1,6 +1,5 @@
 {% extends 'glasgo/base.html' %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
 {% block title %}
   Log In
@@ -16,15 +15,14 @@
   <div class="register-box">
     <h3>Log In</h3>
 
-    <form action="" method="post" class="container-fluid">
+    <form id="login_form" action="{% url 'glasgo:login' %}" method="post" class="container-fluid">
       {% csrf_token %}
       <fieldset class="form-group">
-
         <div class="form-group row">
-          {{ user_form.username|as_crispy_field }}
+          <input class="form-control" type="text" name="username" id="username_login" placeholder="Username">
         </div>
         <div class="form-group row">
-          {{ user_form.password|as_crispy_field }}
+          <input class="form-control" type="password" name="password" id="password_login" placeholder="Password">
         </div>
 
         <p>Not a member of GlasGO yet? <a href="{% url 'glasgo:register' %}">Register here!</a></p>
