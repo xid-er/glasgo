@@ -22,14 +22,13 @@ h4{
   font-style: italic;
 }
 
-.register-box{
+.form-box{
   margin: 0 auto;
   /*margin-left: 20em;
   margin-right: 20em;*/
   width: 50%;
   margin-top: 3em;
   border: 2px solid;
-  text-align: center;
 }
 h3{
   margin-top: 1em;
@@ -87,4 +86,8 @@ float: right;
 .toggle.ios .toggle-handle {
   border-radius: 20px;
   padding: 1em;
+}
+
+.custom-radio{
+  display: inline;
 }

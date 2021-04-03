@@ -1,4 +1,6 @@
+import uuid
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -8,8 +10,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # The additional attributes we wish to include.
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-    age = models.PositiveIntegerField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True, verbose_name="Profile Picture")
+    age = models.PositiveIntegerField(blank=True, null=True)
     occupation = models.CharField(max_length=32, blank=True)
     university = models.CharField(max_length=32, blank=True)
     company = models.CharField(max_length=32, blank=True)
@@ -30,17 +32,24 @@ class UserProfile(models.Model):
 class Post(models.Model):
     # TODO User Likes/Favorites Post
 
-    # link Post to it's owner
-    user_name = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    # link Post to its owner
+    user_name = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # attributes
-    post_date_time = models.DateTimeField(blank=True)
+    # https://towardsdatascience.com/build-a-social-media-website-with-django-feed-app-backend-part-4-d82facfa7b3
+    post_date_time = models.DateTimeField(default=timezone.now, blank=True)
     post_title = models.CharField(max_length = 128)
     post_type = models.CharField(max_length=64)
-    post_number = models.IntegerField(unique=True)
-    post_content = models.CharField(max_length=2048)
+# https://stackoverflow.com/questions/16925129/generate-unique-id-in-django-from-a-model-field
+    post_number = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    # Content of each type of post
+    post_text = models.CharField(max_length=2048, blank=True)
+    post_pic = models.ImageField(upload_to='post_images', blank=True)
+    post_link = models.URLField(blank=True)
+
     post_category = models.CharField(max_length=64)
-    likes = models.PositiveIntegerField(default=0)
+    post_likes = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
         self.request_id = str(uuid.uuid4().int)
@@ -51,14 +60,22 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    # link comment to it's creator
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    # link comment to its creator
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # link to post that was commented
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     # attributes
-    comment_date_time = models.DateTimeField(blank=True)
+    comment_date_time = models.DateTimeField(default=timezone.now)
     comment_content = models.CharField(max_length=1024)
 
     def __str__(self):
         return self.comment_content
+
+class Like(models.Model):
+    user = models.ForeignKey(User, related_name='likes', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
+
+class Favourite(models.Model):
+    user = models.ForeignKey(User, related_name='favourites', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='favourites', on_delete=models.CASCADE)

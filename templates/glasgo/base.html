@@ -29,6 +29,7 @@
           <img src="{% static 'images/g-logo.png' %}" alt="GlasGO logo" width="32" height="32">
         </a>
 
+        {% block sort_posts %}
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" id="top" class="nav-link px-2 link-secondary">Top</a></li>
           <li><a href="#" id="recent" class="nav-link px-2 link-dark">Recent</a></li>
@@ -36,6 +37,7 @@
           <li><a href="#" id="favourites" class="nav-link px-2 link-dark">Favourites</a></li>
           {% endblock %}
         </ul>
+        {% endblock %}
 
         <div class="col-md-3 text-end">
           {% if user.is_authenticated %}

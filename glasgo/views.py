@@ -50,21 +50,39 @@ def edit_profile(request, user_profile_slug):
 
     return render(request,'glasgo/edit_profile.html', context)
 
-
+# https://towardsdatascience.com/build-a-social-media-website-with-django-feed-app-backend-part-4-d82facfa7b3
+'''
 @login_required
 def add_post(request):
-    form = PostForm()
+    user = request.user
+    post_form = PostForm()
 
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        post_form = PostForm(request.POST)
 
-        if form.is_valid():
-            form.save(commit=True)
+        if post_form.is_valid():
+            post_form.user_name = user
+            post_form.save(commit=True)
             return redirect(reverse('glasgo/index.html'))
         else:
-            print(form.errors)
+            print(post_form.errors)
     else:
-        return render(request, 'glasgo/add_post.html', {'form': form})
+        return render(request, 'glasgo/add_post.html', {'post_form': post_form})
+'''
+@login_required
+def add_post(request):
+	user = request.user
+	if request.method == "POST":
+		post_form = PostForm(request.POST, request.FILES)
+		if post_form.is_valid():
+			data = post_form.save(commit=False)
+			data.user_name = user
+			data.save()
+			messages.success(request, f'Posted Successfully')
+			return redirect(revers('glasgo/index.html'))
+	else:
+		post_form = PostForm()
+	return render(request, 'glasgo/add_post.html', {'post_form':post_form})
 
 def show_post(request, post_slug):
     context_dict = {}

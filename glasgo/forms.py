@@ -2,14 +2,30 @@ from django import forms
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit
+from crispy_forms.bootstrap import InlineRadios
 from glasgo.models import UserProfile, Post, Comment
 
+POST_TYPES = (('TXT', 'Text Post'),
+              ('URL', 'Link Post'),
+              ('IMG', 'Image Post'))
 
 class PostForm(forms.ModelForm):
     # It is for posting a new post by any user.
+    post_type = forms.ChoiceField(choices=POST_TYPES, widget=forms.RadioSelect)
     class Meta:
         model = Post
-        fields = ['post_title', 'post_content']
+        fields = ['post_type', 'post_title', 'post_text', 'post_pic', 'post_link', 'user_name']
+
+# https://stackoverflow.com/questions/37151661/django-crispy-forms-custom-input-positioning-and-inline-radio-buttons
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        helper = self.helper = FormHelper()
+        helper.layout = Layout(
+            InlineRadios('post_type')
+        )
+        for field_name, field in self.fields.items():
+            self.helper.form_show_labels = False
+            field.widget.attrs['placeholder'] = field.label
 
 class CommentForm(forms.ModelForm):
 
