@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from glasgo.models import UserProfile, Post, Comment
+from glasgo.models import UserProfile, Post, Comment, Like, Favourite
+from django.contrib.auth.models import User
 
 from glasgo.forms import UserForm, UserProfileForm, PostForm, CommentForm
 
@@ -23,9 +24,18 @@ def about(request):
 def contact(request):
     return render(request, 'glasgo/contact_us.html')
 
+@login_required
 def show_user_profile(request, user_name):
-    # TODO get list of favorites once models updated
+    # TODO get list of favorites
+
+    try:
+        user = User.objects.get(username=user_name)
+    except User.DoesNotExist:
+        return None
+    user_profile = UserProfile.objects.get_or_create(user=user)[0]
     context_dict = {}
+    context_dict['user_profile'] = user_profile
+    context_dict['selected_user'] - user
     top_posts = Post.objects.filter(user_name=user_name).order_by('-likes')
     recent_posts = Post.objects.filter(user_name=user_name).order_by('-post_date_time')
     context_dict['recent'] = recent_posts
@@ -34,8 +44,7 @@ def show_user_profile(request, user_name):
     return render(request, 'glasgo/profile.html', context=context_dict)
 
 @login_required
-def edit_profile(request, user_profile_slug):
-    # TODO think about how to implement this
+def edit_profile(request, user_name):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = UserProfileUpdateForm(request.POST, request.FILES, instance=rquest.user.profile)
@@ -90,16 +99,31 @@ def add_post(request):
         post_form = PostForm()
     return render(request, 'glasgo/add_post.html', {'post_form':post_form})
 
-def show_post(request, post_slug):
+def show_post(request, post_number):
     context_dict = {}
     try:
-        post = Post.objects.get(slug=post_slug)
+        post = Post.objects.get(post_number=post_number)
+        user = request.user
+        is_liked = Like.objects.filter(user=user, post=post)
+        is_favourite = Favourite.objects.filter(user=user, post=post)
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            data = form.save(commit=False)
+            data.post = post
+            data.username = user
+            data.save()
+        else:
+            form = CommentForm()
         comments = Comment.objects.filter(post=post).order_by('-comment_date_time')
-        context_dict['post'] = post
         context_dict['comments'] = comments
+        context_dict['form'] = form
+        context_dict['is_liked'] = is_liked
+        context_dict['is_favourite'] = is_favourite
     except Post.DoesNotExist:
-        context_dict['post'] = None
         context_dict['comments'] = None
+        context_dict['form'] = None
+        context_dict['is_liked'] = None
+        context_dict['is_favourite'] = None
 
     return render(request, 'glasgo/view_post.html', context=context_dict)
 
