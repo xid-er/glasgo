@@ -23,79 +23,13 @@
   </head>
   <body>
     {% block index_banner %}
-    <div class="container-fluid">
-      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-          <img src="{% static 'images/g-logo.png' %}" alt="GlasGO logo" width="32" height="32">
-        </a>
-
-        {% block sort_posts %}
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" id="top" class="nav-link px-2 link-secondary">Top</a></li>
-          <li><a href="#" id="recent" class="nav-link px-2 link-dark">Recent</a></li>
-          {% block favourites %}
-          <li><a href="#" id="favourites" class="nav-link px-2 link-dark">Favourites</a></li>
-          {% endblock %}
-        </ul>
-        {% endblock %}
-
-        <div class="col-md-3 text-end">
-          {% if user.is_authenticated %}
-          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a class="nav-link" href="#">{{ user.username }}</a></li>
-            <li><a class="nav-link" href="{% url 'glasgo:logout' %}">Logout</a></li>
-          </ul>
-          {% else %}
-          <ul class="nav col-md-auto text-end">
-            <li><a href="{% url 'glasgo:login' %}"><img src="{% static 'images/person-circle.svg' %}" alt="Account" width="32" height="32"></a></li>
-            <li><a href="{% url 'glasgo:login' %}">Login</a></li>
-          </ul>
-          {% endif %}
-        </div>
-      </header>
-    </div>
-    {% endblock %}
-
-    {% block left_side %}
     {% endblock %}
 
     {% block auth_logo %}
-      <div class="auth banner">
+      <div class="auth banner text-center justify-content-center">
         <strong><h1 id="logo">GlasGO</h1></strong>
         <h4>People Make Glasgow</h4>
       </div>
-    {% endblock %}
-
-    {% block side %}
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-2 d-none d-md-block offset-sm-10 sidebar">
-          <div class="sidebar-sticky">
-            {% block make_post %}
-              {% if user.is_authenticated %}
-                <a id="addPostBtn" class="btn btn-primary"  href="{% url 'glasgo:add_post' %}">Add a New Post!</a>
-                <br>
-                <br>
-              {% endif %}
-            {% endblock %}
-            <label>Categories:</label>
-            <br>
-            <input type="checkbox" checked data-toggle="toggle" data-on="Events"
-              data-off="Events" data-onstyle="danger" data-style="ios">
-            <br>
-            <input type="checkbox" checked data-toggle="toggle" data-on="Cool Spots"
-              data-off="Cool Spots" data-style="ios">
-            <br>
-            <input class="btn-block" type="checkbox" checked data-toggle="toggle" data-on="Shots of Glasgow"
-              data-off="Shots of Glasgow" data-onstyle="success" data-style="ios">
-            <br>
-            <input type="checkbox" checked data-toggle="toggle" data-on="Other"
-              data-off="Other" data-onstyle="warning" data-style="ios">
-          </div>
-        </div>
-      </div>
-    </div>
-
     {% endblock %}
 
     {% block body %}

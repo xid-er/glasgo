@@ -9,19 +9,26 @@ POST_TYPES = (('TXT', 'Text Post'),
               ('URL', 'Link Post'),
               ('IMG', 'Image Post'))
 
+POST_CATS = (('EVE', 'Event'),
+              ('CS', 'Cool Spot'),
+              ('SoG', 'Shot of Glasgow'),
+              ('O', 'Other'))
+
 class PostForm(forms.ModelForm):
     # It is for posting a new post by any user.
     post_type = forms.ChoiceField(choices=POST_TYPES, widget=forms.RadioSelect)
+    post_category = forms.ChoiceField(choices=POST_CATS, widget=forms.RadioSelect)
     class Meta:
         model = Post
-        fields = ['post_type', 'post_title', 'post_text', 'post_pic', 'post_link', 'user_name']
+        fields = ['user_name','post_type', 'post_category', 'post_title', 'post_text', 'post_pic', 'post_link']
 
 # https://stackoverflow.com/questions/37151661/django-crispy-forms-custom-input-positioning-and-inline-radio-buttons
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         helper = self.helper = FormHelper()
         helper.layout = Layout(
-            InlineRadios('post_type')
+            InlineRadios('post_type'),
+            InlineRadios('post_category')
         )
         for field_name, field in self.fields.items():
             self.helper.form_show_labels = False

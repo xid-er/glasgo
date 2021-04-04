@@ -36,6 +36,10 @@
           {{ post_form.post_pic|as_crispy_field }}
           {{ post_form.post_link|as_crispy_field }}
         </div>
+        <label class="form-group row justify-content-center" for="id_post_category">Category:</label>
+        <div class="form-group row justify-content-center">
+          {{ post_form.post_category|as_crispy_field }}
+        </div>
 
         <div class="form-group row justify-content-center">
           <button id="postBtn" class="btn btn-primary" type="submit" name="submit">Add Post</button>

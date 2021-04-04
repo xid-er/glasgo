@@ -7,6 +7,8 @@ from glasgo.models import UserProfile, Post, Comment
 
 from glasgo.forms import UserForm, UserProfileForm, PostForm, CommentForm
 
+import pdb
+
 def index(request):
     context_dict = {}
     recent_post_list = Post.objects.order_by('-post_date_time')
@@ -21,11 +23,11 @@ def about(request):
 def contact(request):
     return render(request, 'glasgo/contact_us.html')
 
-def show_user_profile(request, user_profile_slug):
+def show_user_profile(request, user_name):
     # TODO get list of favorites once models updated
     context_dict = {}
-    top_posts = Post.objects.filter(user_name=user_profile_slug).order_by('-likes')
-    recent_posts = Post.objects.filter(user_name=user_profile_slug).order_by('-post_date_time')
+    top_posts = Post.objects.filter(user_name=user_name).order_by('-likes')
+    recent_posts = Post.objects.filter(user_name=user_name).order_by('-post_date_time')
     context_dict['recent'] = recent_posts
     context_dict['top'] = top_posts
 
@@ -71,18 +73,22 @@ def add_post(request):
 '''
 @login_required
 def add_post(request):
-	user = request.user
-	if request.method == "POST":
-		post_form = PostForm(request.POST, request.FILES)
-		if post_form.is_valid():
-			data = post_form.save(commit=False)
-			data.user_name = user
-			data.save()
-			messages.success(request, f'Posted Successfully')
-			return redirect(revers('glasgo/index.html'))
-	else:
-		post_form = PostForm()
-	return render(request, 'glasgo/add_post.html', {'post_form':post_form})
+    user = request.user
+    if request.method == "POST":
+        post_form = PostForm(request.POST, request.FILES)
+        post_form.user_name = request.user
+        if post_form.is_valid():
+            # breakpoint()
+            data = post_form.save()
+            data.user_name = user
+            data.save(commit=True)
+            messages.success(request, f'Posted Successfully')
+            return redirect(reverse('glasgo/index.html'))
+        else:
+            print(post_form.errors)
+    else:
+        post_form = PostForm()
+    return render(request, 'glasgo/add_post.html', {'post_form':post_form})
 
 def show_post(request, post_slug):
     context_dict = {}

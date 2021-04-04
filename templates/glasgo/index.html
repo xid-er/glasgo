@@ -1,4 +1,4 @@
-{% extends 'glasgo/base.html' %}
+{% extends 'glasgo/base_posts.html' %}
 
 {% block title %}
   GlasGO
@@ -10,13 +10,7 @@
 {% block favourites %}
 {% endblock %}
 
-{% block left_side %}
-<div class="container-fluid">
-  <div class="left_side row">
-    <div class="col-md-2">
+{% block left %}
       <b><h1 id="logo">GlasGO</h1></b>
       <p class=""><a href="{% url 'glasgo:about' %}">About</a></p>
-    </div>
-  </div>
-</div>
 {% endblock %}

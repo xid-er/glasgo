@@ -40,7 +40,7 @@ $(document).ready(function (){
         $('#div_id_post_text').hide();
         $('#div_id_post_pic').show();
         $('#div_id_post_link').hide();
-      } else {
+      } else if(selected == 'URL'){
         $('#div_id_post_text').hide();
         $('#div_id_post_pic').hide();
         $('#div_id_post_link').show();

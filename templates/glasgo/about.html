@@ -5,8 +5,11 @@
   About GlasGO
 {% endblock %}
 
+{% block side %}
+{% endblock %}
+
 {% block body %}
-    <div>
+    <div class="text-center">
         <li>
             <ul>
                 This platform was created in March 2021 as a student project as a part of Web Application Development 2 course at University of Glasgow
@@ -32,15 +35,19 @@
         </li>
     </div>
 
-    <div>
+    <div class="text-center">
         <h4>Terms and Conditions of using GlasGO</h4>
         <li>
             <ul>
-                Users agree to share personal information with GlasGo, which will be publicly available, such as their name, age, occupation, and company/university, if shared
+                Users agree to share personal information with GlasGO, which will be publicly available, such as their name, age, occupation, and company/university, if shared
             </ul>
             <ul>
-                GlasGo will not share this information with third parties or will it be used for any internal research or study.
+                GlasGO will not share this information with third parties or will it be used for any internal research or study.
             </ul>
         </li>
+    </div>
+
+    <div class="text-center">
+      <a href="{% url 'glasgo:contact' %}">Contact Us</a>
     </div>
 {% endblock %}
