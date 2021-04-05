@@ -59,7 +59,7 @@ class UserProfileMethodTests(TestCase):
         Ensures the age of a User Profile can be None/Null.
         """
         up = create_simple_User_Profile_object()
-        self.assertEqual((up.age == None), True)
+        self.assertEqual((up.age == None), True, f"{FAILURE_HEADER}User Profile age should be allowed to be null. {FAILURE_FOOTER}")
       
     def test_ensure_UserProfile_occupation_can_be_blank(self):
         up = create_simple_User_Profile_object()
@@ -74,7 +74,7 @@ class UserProfileMethodTests(TestCase):
         """
         Ensures the university of a User Profile can be empty.
         """
-        self.assertEqual((up.university == ''), True)
+        self.assertEqual((up.university == ''), True, f"{FAILURE_HEADER}User Profile university should be allowed to be blank. {FAILURE_FOOTER}")
         
     def test_ensure_UserProfile_company_can_be_blank(self):
         up = create_simple_User_Profile_object()
