@@ -1,4 +1,4 @@
-{% extends 'glasgo/base.html' %}
+{% extends 'glasgo/base_posts.html' %}
 
 {% block auth_logo %}
 {% endblock %}
@@ -10,7 +10,9 @@
 <div class="container-fluid">
   <div class="left_side row">
     <div class="col-md-2">
-      
+      <p>{{ MEDIA_URL }}{{ user_profile.picture }}</p>
+      <img class="card-img-bottom"
+           src="{{ MEDIA_URL }}{{ user_profile.picture }}" alt="Profile Pic">
     </div>
   </div>
 </div>

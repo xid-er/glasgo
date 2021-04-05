@@ -20,6 +20,7 @@
     <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/glasgo-ajax.js' %}"></script>
   </head>
   <body>
     {% block index_banner %}
@@ -29,14 +30,9 @@
       <div class="auth banner text-center justify-content-center">
           <strong><h1 id="logo">GlasGO</h1></strong>
           <h4>People Make Glasgow</h4>
-        </div>
-        <div class="sidebar-sticky" id="post-listing">
-        {% block sidebar_block %}
-        	{% get_post_list post %}
-        {% endblock %}
-        </div>
-      {% endblock %}
-      
+      </div>
+    {% endblock %}
+
       {% block body %}
       {% endblock %}
       </div>

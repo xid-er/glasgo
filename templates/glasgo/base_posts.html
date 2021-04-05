@@ -1,6 +1,9 @@
 {% extends 'glasgo/base.html' %}
 {% load staticfiles %}
 
+{% block auth_logo %}
+{% endblock %}
+
 {% block index_banner %}
 <div class="container-fluid fixed-top p-0">
   <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-white">
@@ -48,7 +51,7 @@
       {% block posts %}
         {% if recent %}
           {% for post in recent %}
-            <div class="justify-content-center">
+            <div class="justify-content-center" data-postnumber={{ post.post_number }}>
               <div class="card bg-light m-4 border-right-0 border-top-0 border-bottom-0
               {% if post.post_category == 'EVE' %} border-danger
               {% elif post.post_category == 'CS' %} border-primary
@@ -59,9 +62,9 @@
                   <div class="col-md-2">
                     {{ post.post_likes }}
                     {% if post in liked_posts %}
-                      <input type="image" src="{% static 'images/like-fill.svg' %}" class="like" id="{{ post.post_number }}" width="32" height="32"></input>
+                      <input type="image" src="{% static 'images/like-fill.svg' %}" class="like" id="likeBtn" width="32" height="32"></input>
                     {% else %}
-                      <input type="image" src="{% static 'images/like.svg' %}" class="like" id="{{ post.post_number }} width="32" height="32""></input>
+                      <input type="image" src="{% static 'images/like.svg' %}" class="like" id="likeBtn" width="32" height="32"></input>
                     {% endif %}
                     <a href="{% if post.post_type == 'URL' %} {{ post.post_link }}
                              {% else %} {% url 'glasgo:show_post' post_number=post.post_number %}
@@ -73,9 +76,8 @@
                   </div>
                   <div class="col-md-10">
                     <div class="card-body">
-                      <a href="">
-                      <h5 class="card-title">{{ post.post_title }}</h5></a>
-                      <p class="card-text">{{ post.user_name }}</p>
+                      <a href="{% url 'glasgo:show_post' post_number=post.post_number %}"><h5 class="card-title">{{ post.post_title }}</h5></a>
+                      <a href="{% url 'glasgo:show_user_profile' post.user_name %}"><p class="card-text">{{ post.user_name }}</p></a>
                       <p class="card-text"><small class="text-muted">{{ post.post_date_time }}</small></p>
                     </div>
                   </div>

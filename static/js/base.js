@@ -29,6 +29,7 @@ $(document).ready(function (){
         $('#div_id_university').hide();
       }
   });
+  
   $('.custom-control-input').click(function (){
       var selected = this.value;
       if (selected == 'TXT'){

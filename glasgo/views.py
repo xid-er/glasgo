@@ -2,13 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-from glasgo.models import UserProfile, Post, Comment, Like, Favourite
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
+from django.urls import reverse
+from django.views import View
 
 from glasgo.forms import UserForm, UserProfileForm, PostForm, CommentForm
-
-import pdb
+from glasgo.models import UserProfile, Post, Comment, Like, Favourite
 
 def index(request):
     context_dict = {}
@@ -34,11 +34,11 @@ def show_user_profile(request, user_name):
     context_dict = {}
 
     user_profile = UserProfile.objects.get_or_create(user=user)[0]
-    top_posts = Post.objects.filter(user_name=user_name).order_by('-likes')
-    recent_posts = Post.objects.filter(user_name=user_name).order_by('-post_date_time')
+    top_posts = Post.objects.filter(user_name=user.username).order_by('-likes')
+    recent_posts = Post.objects.filter(user_name=user.username).order_by('-post_date_time')
     favourite_posts = Post.objects.filter(user=user).order_by('-post_date_time')
     context_dict['user_profile'] = user_profile
-    context_dict['selected_user'] - user
+    context_dict['selected_user'] = user
     context_dict['recent'] = recent_posts
     context_dict['top'] = top_posts
     context_dict['favourites'] = favourite_posts
@@ -64,24 +64,6 @@ def edit_profile(request, user_name):
     return render(request,'glasgo/edit_profile.html', context)
 
 # https://towardsdatascience.com/build-a-social-media-website-with-django-feed-app-backend-part-4-d82facfa7b3
-'''
-@login_required
-def add_post(request):
-    user = request.user
-    post_form = PostForm()
-
-    if request.method == 'POST':
-        post_form = PostForm(request.POST)
-
-        if post_form.is_valid():
-            post_form.user_name = user
-            post_form.save(commit=True)
-            return redirect(reverse('glasgo/index.html'))
-        else:
-            print(post_form.errors)
-    else:
-        return render(request, 'glasgo/add_post.html', {'post_form': post_form})
-'''
 @login_required
 def add_post(request):
     user = request.user
@@ -129,7 +111,6 @@ def show_post(request, post_number):
 
     return render(request, 'glasgo/view_post.html', context=context_dict)
 
-@login_required
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -235,6 +216,3 @@ class FavoritePostView(View):
         post.save()
 
         return HttpResponse(post.is_favorite)
-        
-        
-        
