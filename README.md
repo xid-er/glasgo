@@ -27,8 +27,7 @@ It is a website for Glaswegians, by Glaswegians.
 4 - enter 127.0.0.1:8000 into URL of browser
 
 # Developer of GlasGo
-Karlis Slides       2467273S@student.gla.ac.uk
-Lewis McGlinchey    2259138M@student.gla.ac.uk
-Simona Holubkova    2483856H@student.gla.ac.uk
-Yanling Liu         2451921L@student.gla.ac.uk
-![Image text](https://img.shields.io/badge/Kailis-2467273S-blue.svg)
+Karlis Slides       2467273S@student.gla.ac.uk  
+Lewis McGlinchey    2259138M@student.gla.ac.uk  
+Simona Holubkova    2483856H@student.gla.ac.uk  
+Yanling Liu         2451921L@student.gla.ac.uk  
