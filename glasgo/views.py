@@ -36,7 +36,7 @@ def show_user_profile(request, user_name):
     user_profile = UserProfile.objects.get_or_create(user=user)[0]
     top_posts = Post.objects.filter(user_name=user_name).order_by('-likes')
     recent_posts = Post.objects.filter(user_name=user_name).order_by('-post_date_time')
-    favourite_posts = Post.objects.filter(user=user).order_by('-post_date_time')
+    favourite_posts = Post.objects.filter(user_name=user_name).order_by('-post_date_time')
     context_dict['user_profile'] = user_profile
     context_dict['selected_user'] = user
     context_dict['recent'] = recent_posts
