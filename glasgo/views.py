@@ -75,7 +75,6 @@ def add_post(request):
             data = post_form.save()
             data.user_name = user
             data.save(commit=True)
-            messages.success(request, f'Posted Successfully')
             return redirect(reverse('glasgo/index.html'))
         else:
             print(post_form.errors)
