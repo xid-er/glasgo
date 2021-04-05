@@ -1,9 +1,8 @@
 ![Image text](https://github.com/xid-er/glasgo/blob/main/static/images/g-logo.png)
 
-# GlasGO
+# GlasGO relevant packages
 ![Image text](https://img.shields.io/badge/django-2.2.17-green.svg)
 ![Image text](https://img.shields.io/badge/pillow-8.1.0-yellow.svg)
-![Image text](https://img.shields.io/badge/django-registration-redux-2.2-blue.svg)
 ![Image text](https://img.shields.io/badge/requests-blue.svg)
 ![Image text](https://img.shields.io/badge/coverage-blue.svg)
 
