@@ -27,7 +27,7 @@ def contact(request):
 @login_required
 def show_user_profile(request, user_name):
     try:
-        user = User.objects.get(username=user_name)
+        user = request.user
     except User.DoesNotExist:
         return None
 
