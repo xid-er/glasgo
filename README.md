@@ -13,5 +13,6 @@ Instruction to run GlasGo:
 			  python manage.py makemigrations
 			  python manage.py migrate
 		    python populate_glasgo.py
+		    python manage.py runserver
 		    
 4 - enter 127.0.0.1:8000 into URL of browser
