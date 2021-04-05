@@ -129,6 +129,21 @@ def show_post(request, post_number):
 
     return render(request, 'glasgo/view_post.html', context=context_dict)
 
+@login_required
+def like(request):
+    post_number = request.GET['post_number']
+    try:
+        post = Post.objects.get(post_number=int(post_number))
+    except Post.DoesNotExist:
+        return HttpResponse(-1)
+    except ValueError:
+        return HttpResponse(-1)
+    post.post_likes += 1
+    post.save()
+
+    return HttpResponse(post.post_likes)
+
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
