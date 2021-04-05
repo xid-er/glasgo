@@ -15,9 +15,9 @@
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
       <li><a href="#" id="top" class="nav-link px-2 link-secondary">Top</a></li>
       <li><a href="#" id="recent" class="nav-link px-2 link-dark">Recent</a></li>
-      {% block favourites %}
+      {% if user == selected_user %}
       <li><a href="#" id="favourites" class="nav-link px-2 link-dark">Favourites</a></li>
-      {% endblock %}
+      {% endif %}
     </ul>
     {% endblock %}
 
@@ -61,10 +61,10 @@
                 <div class="row">
                   <div class="col-md-2">
                     {{ post.post_likes }}
-                    {% if post in liked_posts %}
-                      <input type="image" src="{% static 'images/like-fill.svg' %}" class="like" id="likeBtn" width="32" height="32"></input>
+                    {% if post.is_liked %}
+                      <input type="image" src="{% static 'images/like-fill.svg' %}" class="like" id="likeBtn" width="20" height="20"></input>
                     {% else %}
-                      <input type="image" src="{% static 'images/like.svg' %}" class="like" id="likeBtn" width="32" height="32"></input>
+                      <input type="image" src="{% static 'images/like.svg' %}" class="like" id="likeBtn" width="20" height="20"></input>
                     {% endif %}
                     <a href="{% if post.post_type == 'URL' %} {{ post.post_link }}
                              {% else %} {% url 'glasgo:show_post' post_number=post.post_number %}
@@ -73,11 +73,16 @@
                                                     {% elif post.post_type == 'TXT' %} {% static 'images/text.svg' %}
                                                     {% endif %}"
                                                     width="32" height="32"></img></a>
+                    {% if post.is_favorite %}
+                      <input type="image" src="{% static 'images/star-fill.svg' %}" class="favourite" id="favBtn" width="20" height="20">
+                    {% else %}
+                      <input type="image" src="{% static 'images/star.svg' %}" class="like" id="likeBtn" width="20" height="20">
+                    {% endif %}
                   </div>
                   <div class="col-md-10">
                     <div class="card-body">
                       <a href="{% url 'glasgo:show_post' post_number=post.post_number %}"><h5 class="card-title">{{ post.post_title }}</h5></a>
-                      <a href="{% url 'glasgo:show_user_profile' post.user_name %}"><p class="card-text">{{ post.user_name }}</p></a>
+                      <a href="{% url 'glasgo:show_user_profile' post.user_name %}"><p class="card-text">by {{ post.user_name }}</p></a>
                       <p class="card-text"><small class="text-muted">{{ post.post_date_time }}</small></p>
                     </div>
                   </div>
