@@ -24,7 +24,6 @@ def about(request):
 def contact(request):
     return render(request, 'glasgo/contact_us.html')
 
-@login_required
 def show_user_profile(request, user_name):
     try:
         user = User.objects.get(username=user_name)
@@ -34,9 +33,9 @@ def show_user_profile(request, user_name):
     context_dict = {}
 
     user_profile = UserProfile.objects.get_or_create(user=user)[0]
-    top_posts = Post.objects.filter(user_name=user_name).order_by('-likes')
-    recent_posts = Post.objects.filter(user_name=user_name).order_by('-post_date_time')
-    favourite_posts = Post.objects.filter(user_name=user_name).order_by('-post_date_time')
+    top_posts = Post.objects.filter(user_name=user).order_by('-likes')
+    recent_posts = Post.objects.filter(user_name=user).order_by('-post_date_time')
+    favourite_posts = Post.objects.filter(user_name=user).order_by('-post_date_time')
     context_dict['user_profile'] = user_profile
     context_dict['selected_user'] = user
     context_dict['recent'] = recent_posts
@@ -69,13 +68,13 @@ def add_post(request):
     user = request.user
     if request.method == "POST":
         post_form = PostForm(request.POST, request.FILES)
-        post_form.user_name = request.user
+        print(post_form.is_valid())
         if post_form.is_valid():
             # breakpoint()
-            data = post_form.save()
-            data.user_name = user
-            data.save(commit=True)
-            return redirect(reverse('glasgo/index.html'))
+            data = post_form.save(commit=False)
+            data.user_name = request.user
+            data.save()
+            return redirect(reverse('glasgo:index'))
         else:
             print(post_form.errors)
     else:
@@ -87,8 +86,11 @@ def show_post(request, post_number):
     try:
         post = Post.objects.get(post_number=post_number)
         user = request.user
-        is_liked = Like.objects.filter(user=user, post=post)
-        is_favourite = Favourite.objects.filter(user=user, post=post)
+        if request.user.is_authenticated:
+            is_liked = Like.objects.filter(user=user, post=post)
+            is_favourite = Favourite.objects.filter(user=user, post=post)
+            context_dict['is_liked'] = is_liked
+            context_dict['is_favourite'] = is_favourite
         post_type = post.post_type
 
         if request.method == 'POST':
@@ -102,8 +104,6 @@ def show_post(request, post_number):
         comments = Comment.objects.filter(post=post).order_by('-comment_date_time')
         context_dict['comments'] = comments
         context_dict['form'] = form
-        context_dict['is_liked'] = is_liked
-        context_dict['is_favourite'] = is_favourite
         context_dict['post_type'] = post_type
     except Post.DoesNotExist:
         return render(request, 'glasgo/')

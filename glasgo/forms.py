@@ -20,7 +20,7 @@ class PostForm(forms.ModelForm):
     post_category = forms.ChoiceField(choices=POST_CATS, widget=forms.RadioSelect)
     class Meta:
         model = Post
-        fields = ['user_name','post_type', 'post_category', 'post_title', 'post_text', 'post_pic', 'post_link']
+        fields = ['post_type', 'post_category', 'post_title', 'post_text', 'post_pic', 'post_link']
 
 # https://stackoverflow.com/questions/37151661/django-crispy-forms-custom-input-positioning-and-inline-radio-buttons
     def __init__(self, *args, **kwargs):
