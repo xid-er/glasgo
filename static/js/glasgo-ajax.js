@@ -11,3 +11,14 @@ $(document).ready(function() {
             })
     });
 });
+
+$('#search-input').keyup(function() {
+	var query;
+	query = $(this).val();
+	
+	$.get('/glasgo/suggest/',
+		{'suggestion': query},
+		function(data) {
+			$('#posts-listing').html(data);
+		})
+});

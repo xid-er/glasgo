@@ -215,3 +215,47 @@ def register(request):
                   context={'user_form': user_form,
                            'profile_form': profile_form,
                            'registered': registered})
+
+
+class LikePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        post_number = request.GET['post_number']
+        try:
+            post = Post.objects.get(post_number=int(post_number))
+        except Post.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        post.post_likes = post.post_likes + 1
+        post.save()
+
+        return HttpResponse(post.post_likes)
+
+def get_post_list(max_results=0, starts_with=''):
+    post_list = []
+    if starts_with:
+        post_list = Post.objects.filter(name__istartswith=starts_with)
+
+    if max_results > 0:
+        if len(post_list) > max_results:
+            post_list = post_list[:max_results]
+
+    return post_list
+
+class PostSuggestionView(View):
+    def get(self, request):
+        if 'suggestion' in request.GET:
+            suggestion = request.GET['suggestion']
+        else:
+            suggestion = ''
+
+        post_list = get_post_list(max_results=8,
+                                          starts_with=suggestion)
+        if len(post_list) == 0:
+            post_list = Post.objects.order_by('-likes')
+
+        return render(request,
+                      'glasgo/view_post.html',
+                      {'post': post_list})
