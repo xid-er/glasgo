@@ -31,4 +31,4 @@ Karlis Slides       2467273S@student.gla.ac.uk
 Lewis McGlinchey    2259138M@student.gla.ac.uk
 Simona Holubkova    2483856H@student.gla.ac.uk
 Yanling Liu         2451921L@student.gla.ac.uk
-![Image text](https://img.shields.io/badge/Kailis-2467273S.svg)
+![Image text](https://img.shields.io/badge/Kailis-2467273S-blue.svg)
