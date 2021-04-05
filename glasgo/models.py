@@ -15,7 +15,6 @@ class UserProfile(models.Model):
     occupation = models.CharField(max_length=32, blank=True)
     university = models.CharField(max_length=32, blank=True)
     company = models.CharField(max_length=32, blank=True)
-    # terms_accepted = models.BooleanField()
 
 
     # user can like/favorite many posts
@@ -30,7 +29,6 @@ class UserProfile(models.Model):
 
 
 class Post(models.Model):
-    # TODO User Likes/Favorites Post
 
     # link Post to its owner
     user_name = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -38,7 +36,7 @@ class Post(models.Model):
     # attributes
     # https://towardsdatascience.com/build-a-social-media-website-with-django-feed-app-backend-part-4-d82facfa7b3
     post_date_time = models.DateTimeField(default=timezone.now, blank=True)
-    post_title = models.CharField(max_length = 128)
+    post_title = models.CharField(max_length=128)
     post_type = models.CharField(max_length=64)
 # https://stackoverflow.com/questions/16925129/generate-unique-id-in-django-from-a-model-field
     post_number = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
