@@ -91,3 +91,11 @@ float: right;
 .custom-radio{
   display: inline;
 }
+
+body {
+    padding-top: 65px;
+}
+
+.card{
+  border-width: thick;
+}

@@ -13,6 +13,6 @@ urlpatterns = [
     path('user/<slug:user_profile_slug>/', views.show_user_profile, name='show_user_profile'),
     path('user/<slug:user_profile_slug>/edit/', views.edit_profile, name='edit_profile'),
     path('add_post/', views.add_post, name='add_post'),
-    path('post/<slug:post_slug>/', views.show_post, name='show_post'),
+    path('post/<post_number>/', views.show_post, name='show_post'),
 
 ]

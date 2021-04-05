@@ -2,8 +2,8 @@
 {% load staticfiles %}
 
 {% block index_banner %}
-<div class="container-fluid">
-  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+<div class="container-fluid fixed-top p-0">
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-white">
     <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
       <img src="{% static 'images/g-logo.png' %}" alt="GlasGO logo" width="32" height="32">
     </a>
@@ -36,26 +36,53 @@
 {% endblock %}
 
 {% block body %}
-<div class="container-fluid">
+<div class="container-fluid pt-5">
   <div class="row">
 
-    <div class="left col-md-3">
+    <div class="left col-md-3 position-fixed">
       {% block left %}
       {% endblock %}
     </div>
 
-    <div class="middle col-md-6">
+    <div class="middle col-md-6 offset-sm-3">
       {% block posts %}
         {% if recent %}
           {% for post in recent %}
             <div class="justify-content-center">
-              <div class="card m-4">
-                <div class="card-body">
-                  <h5 class="card-title">{{ post.post_title }}</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">{{ post.post_date_time }}</small></p>
+              <div class="card bg-light m-4 border-right-0 border-top-0 border-bottom-0
+              {% if post.post_category == 'EVE' %} border-danger
+              {% elif post.post_category == 'CS' %} border-primary
+              {% elif post.post_category == 'SoG' %} border-success
+              {% elif post.post_category == 'O' %} border-warning
+              {% endif %}">
+                <div class="row">
+                  <div class="col-md-2">
+                    {{ post.post_likes }}
+                    {% if post in liked_posts %}
+                      <input type="image" src="{% static 'images/like-fill.svg' %}" class="like" id="{{ post.post_number }}" width="32" height="32"></input>
+                    {% else %}
+                      <input type="image" src="{% static 'images/like.svg' %}" class="like" id="{{ post.post_number }} width="32" height="32""></input>
+                    {% endif %}
+                    <a href="{% if post.post_type == 'URL' %} {{ post.post_link }}
+                             {% else %} #
+                             {% endif %}"><img src="{% if post.post_type == 'IMG' %} {% static 'images/image.svg' %}
+                                                    {% elif post.post_type == 'URL' %} {% static 'images/link.svg' %}
+                                                    {% elif post.post_type == 'TXT' %} {% static 'images/text.svg' %}
+                                                    {% endif %}"
+                                                    width="32" height="32"></img></a>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="card-body">
+                      <a href="">
+                      <h5 class="card-title">{{ post.post_title }}</h5></a>
+                      <p class="card-text">{{ post.user_name }}</p>
+                      <p class="card-text"><small class="text-muted">{{ post.post_date_time }}</small></p>
+                    </div>
+                  </div>
                 </div>
-                <img class="card-img-bottom" src="{{ post.post_pic }}" alt="Post image">
+                {% if post.post_type == "IMG" %}
+                  <img class="card-img-bottom" src="{{ MEDIA_URL }}{{ post.post_pic }}" alt="Post image">
+                {% endif %}
               </div>
             </div>
           {% endfor %}
@@ -65,7 +92,7 @@
       {% endblock %}
     </div>
 
-    <div class="right col-md-3">
+    <div class="right col-md-3 position-fixed offset-sm-9">
       {% block side %}
         <div class="sidebar-sticky">
           {% block make_post %}
