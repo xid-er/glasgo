@@ -15,7 +15,6 @@ class UserProfile(models.Model):
     occupation = models.CharField(max_length=32, blank=True)
     university = models.CharField(max_length=32, blank=True)
     company = models.CharField(max_length=32, blank=True)
-    # terms_accepted = models.BooleanField()
 
 
     # user can like/favorite many posts

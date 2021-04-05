@@ -1,0 +1,26 @@
+{% extends 'rango/base_posts.html' %}
+{% load staticfiles %}
+
+{% block index_banner %}
+{% endblock %}
+
+{% block body %}
+    <div class="middle col-md-6">
+        {% block posts %}
+            {% if recent %}
+                <div>
+                    <strong id="like_count">{{ post.post_likes }}</strong> likes
+                    {% if user.is_authenticated %}
+                        <button id="like_btn"
+                                data-postnumber="{{ post.post_number }}"
+                                class="btn btn-primary btn-sm"
+                                type="button">
+                            <span data-feather="thumbs-up"></span>
+                            Like Post
+                        </button>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}
