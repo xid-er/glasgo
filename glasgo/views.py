@@ -217,3 +217,24 @@ class LikePostView(View):
         post.save()
 
         return HttpResponse(post.post_likes)
+
+class FavoritePostView(View):
+    def get(self, request):
+        post_number = request.GET['post_number']
+        try:
+            post = Post.objects.get(post_number=int(post_number))
+            if post.is_favorite:
+                post.is_favorite = False
+            else:
+                post.is_favorite = True
+        except Post.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        post.save()
+
+        return HttpResponse(post.is_favorite)
+        
+        
+        

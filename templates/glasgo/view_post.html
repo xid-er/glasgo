@@ -20,6 +20,18 @@
                         </button>
                     {% endif %}
                 </div>
+				<div>
+					<strong id="is_favorite">{{ post.is_favorite }}</strong> favorites
+					{% if user.is_authenticated %}
+						<button id="favorite_btn"
+								data-postnumber="{{ post.post_number }}"
+								class="btn btn-primary btn-sm"
+								type="button">
+							<span class="glyphicon glyphicon-star"></span> 
+							Favorite Post
+						</button>
+					{% endif %}
+				</div>
             {% endif %}
         {% endblock %}
     </div>

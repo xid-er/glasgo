@@ -48,6 +48,7 @@ class Post(models.Model):
 
     post_category = models.CharField(max_length=64)
     post_likes = models.PositiveIntegerField(default=0)
+    is_favorite = models.BooleanField(default=False) 
 
     def save(self, *args, **kwargs):
         self.request_id = str(uuid.uuid4().int)
