@@ -16,5 +16,4 @@ urlpatterns = [
     path('post/<post_number>/', views.show_post, name='show_post'),
     path('like/', views.like, name='like_post'),
     path('like_post/', views.LikePostView.as_view(), name='like_post'),
-    path('suggest/', views.PostSuggestionView.as_view(), name='suggest'),
 ]
