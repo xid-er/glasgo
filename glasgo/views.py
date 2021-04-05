@@ -130,20 +130,6 @@ def show_post(request, post_number):
     return render(request, 'glasgo/view_post.html', context=context_dict)
 
 @login_required
-def like(request):
-    post_number = request.GET['post_number']
-    try:
-        post = Post.objects.get(post_number=int(post_number))
-    except Post.DoesNotExist:
-        return HttpResponse(-1)
-    except ValueError:
-        return HttpResponse(-1)
-    post.post_likes += 1
-    post.save()
-
-    return HttpResponse(post.post_likes)
-
-
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -215,3 +201,40 @@ def register(request):
                   context={'user_form': user_form,
                            'profile_form': profile_form,
                            'registered': registered})
+
+class LikePostView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        post_number = request.GET['post_number']
+        try:
+            post = Post.objects.get(post_number=int(post_number))
+        except Post.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        post.post_likes = post.post_likes + 1
+        post.save()
+
+        return HttpResponse(post.post_likes)
+
+class FavoritePostView(View):
+    def get(self, request):
+        post_number = request.GET['post_number']
+        try:
+            post = Post.objects.get(post_number=int(post_number))
+            if post.is_favorite:
+                post.is_favorite = False
+            else:
+                post.is_favorite = True
+        except Post.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        post.save()
+
+        return HttpResponse(post.is_favorite)
+        
+        
+        
