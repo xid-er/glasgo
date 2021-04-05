@@ -64,7 +64,7 @@
                       <input type="image" src="{% static 'images/like.svg' %}" class="like" id="{{ post.post_number }} width="32" height="32""></input>
                     {% endif %}
                     <a href="{% if post.post_type == 'URL' %} {{ post.post_link }}
-                             {% else %} #
+                             {% else %} {% url 'glasgo:show_post' post_number=post.post_number %}
                              {% endif %}"><img src="{% if post.post_type == 'IMG' %} {% static 'images/image.svg' %}
                                                     {% elif post.post_type == 'URL' %} {% static 'images/link.svg' %}
                                                     {% elif post.post_type == 'TXT' %} {% static 'images/text.svg' %}
