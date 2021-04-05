@@ -38,7 +38,7 @@ def show_user_profile(request, user_name):
     recent_posts = Post.objects.filter(user_name=user_name).order_by('-post_date_time')
     favourite_posts = Post.objects.filter(user=user).order_by('-post_date_time')
     context_dict['user_profile'] = user_profile
-    context_dict['selected_user'] - user
+    context_dict['selected_user'] = user
     context_dict['recent'] = recent_posts
     context_dict['top'] = top_posts
     context_dict['favourites'] = favourite_posts
@@ -108,6 +108,8 @@ def show_post(request, post_number):
         user = request.user
         is_liked = Like.objects.filter(user=user, post=post)
         is_favourite = Favourite.objects.filter(user=user, post=post)
+        post_type = post.post_type
+
         if request.method == 'POST':
             form = CommentForm(request.POST)
             data = form.save(commit=False)
@@ -121,11 +123,9 @@ def show_post(request, post_number):
         context_dict['form'] = form
         context_dict['is_liked'] = is_liked
         context_dict['is_favourite'] = is_favourite
+        context_dict['post_type'] = post_type
     except Post.DoesNotExist:
-        context_dict['comments'] = None
-        context_dict['form'] = None
-        context_dict['is_liked'] = None
-        context_dict['is_favourite'] = None
+        return render(request, 'glasgo/')
 
     return render(request, 'glasgo/view_post.html', context=context_dict)
 
