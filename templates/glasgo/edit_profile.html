@@ -1,0 +1,47 @@
+{% extends 'glasgo/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Edit Profile
+{% endblock %}
+
+{% block side %}
+{% endblock %}
+
+{% block auth_logo %}
+{% endblock %}
+
+{% block body %}
+  <div class="form-box">
+    <h3>Edit Profile</h3>
+
+    <form action="{% url 'glasgo:user/<user_name>/edit/' %}" method="post"
+      class="container-fluid" enctype="multipart/form-data">
+
+      {% csrf_token %}
+
+      <fieldset class="form-group">
+        <div class="form-group row justify-content-center">
+          {{ user_form.username|as_crispy_field }}
+          {{ user_form.email|as_crispy_field }}
+          {{ user_form.first_name|as_crispy_field }}
+          {{ user_form.last_name|as_crispy_field }}
+        </div>
+        <div class="form-group row justify-content-center">
+          {{ profile_form.age|as_crispy_field }}
+          {{ profile_form.occupation|as_crispy_field }}
+          {{ profile_form.university|as_crispy_field }}
+          {{ profile_form.company|as_crispy_field }}
+        </div>
+
+        <div class="form-group row justify-content-center">
+          <button id="postBtn" class="btn btn-primary" type="submit" name="submit">Edit Profile</button>
+          <br /><br />
+          <a class="btn btn-lg btn-warning btn-block text-uppercase"
+                href="{% url 'user/<user_name>/' %}">Go Back</a>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+{% endblock %}
