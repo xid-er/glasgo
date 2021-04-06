@@ -12,13 +12,19 @@
     </a>
 
     {% block sort_posts %}
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="#" id="top" class="nav-link px-2 link-secondary">Top</a></li>
-      <li><a href="#" id="recent" class="nav-link px-2 link-dark">Recent</a></li>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-outline-primary active">
+        <input type="radio" name="options" id="top" autocomplete="off" checked> Top
+      </label>
+      <label class="btn btn-outline-primary">
+        <input type="radio" name="options" id="recent" autocomplete="off"> Recent
+      </label>
       {% if user == selected_user %}
-      <li><a href="#" id="favourites" class="nav-link px-2 link-dark">Favourites</a></li>
+      <label class="btn btn-outline-primary">
+        <input type="radio" name="options" id="favourites" autocomplete="off"> Favourites
+      </label>
       {% endif %}
-    </ul>
+    </div>
     {% endblock %}
 
     <div class="col-md-3 text-end">
@@ -51,7 +57,7 @@
       {% block posts %}
         {% if recent %}
           {% for post in recent %}
-            <div class="justify-content-center" data-postnumber={{ post.post_number }}>
+            <div class="justify-content-center post {{ post.post_category }}" data-postnumber={{ post.post_number }}>
               <div class="card bg-light m-4 border-right-0 border-top-0 border-bottom-0
               {% if post.post_category == 'EVE' %} border-danger
               {% elif post.post_category == 'CS' %} border-primary
@@ -111,17 +117,17 @@
           {% endblock %}
           <label>Categories:</label>
           <br>
-          <input type="checkbox" checked data-toggle="toggle" data-on="Events"
-            data-off="Events" data-onstyle="danger" data-style="ios">
+          <a class="cat" id="EVE"><input type="checkbox" checked data-toggle="toggle" data-on="Events"
+            data-off="Events" data-onstyle="danger" data-style="ios"></a>
           <br>
-          <input type="checkbox" checked data-toggle="toggle" data-on="Cool Spots"
-            data-off="Cool Spots" data-style="ios">
+          <a class="cat" id="CS"><input type="checkbox" checked data-toggle="toggle" data-on="Cool Spots"
+            data-off="Cool Spots" data-style="ios"></a>
           <br>
-          <input class="btn-block" type="checkbox" checked data-toggle="toggle" data-on="Shots of Glasgow"
-            data-off="Shots of Glasgow" data-onstyle="success" data-style="ios">
+          <a class="cat" id="SoG"><input type="checkbox" checked data-toggle="toggle" data-on="Shots of Glasgow"
+            data-off="Shots of Glasgow" data-onstyle="success" data-style="ios"></a>
           <br>
-          <input type="checkbox" checked data-toggle="toggle" data-on="Other"
-            data-off="Other" data-onstyle="warning" data-style="ios">
+          <a class="cat" id="O"><input type="checkbox" checked data-toggle="toggle" data-on="Other"
+            data-off="Other" data-onstyle="warning" data-style="ios"></a>
         </div>
       {% endblock %}
     </div>

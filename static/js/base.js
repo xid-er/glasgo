@@ -4,6 +4,7 @@ $(document).ready(function (){
   $('#div_id_post_pic').hide();
   $('#div_id_post_link').hide();
 
+  // Placeholder for picture upload buttons
   $('.custom-file label').each(function(){
     var label_for = $(this).attr('for');
     if (label_for == 'id_picture'){
@@ -14,7 +15,7 @@ $(document).ready(function (){
     }
   });
 
-
+  // Registration employment
   $('option').click(function (){
       var selected = this.text;
       if (selected == "Employed"){
@@ -29,7 +30,8 @@ $(document).ready(function (){
         $('#div_id_university').hide();
       }
   });
-  
+
+  // Post adding type
   $('.custom-control-input').click(function (){
       var selected = this.value;
       if (selected == 'TXT'){
@@ -47,4 +49,37 @@ $(document).ready(function (){
         $('#div_id_post_link').show();
       }
   });
+
+  // Post filtering
+  $('.cat').click(function(){
+    if (! $(this).find('div').hasClass('off')){
+      var type = this.id;
+      $('.post').each(function(){
+        if ($(this).hasClass(type)){
+          $(this).hide();
+        }
+      })
+    }
+    else {
+      var type = this.id;
+      $('.post').each(function(){
+        if ($(this).hasClass(type)){
+          $(this).show();
+        }
+      })
+    }
+  });
+
+  // Post sorting
+  $('.btn-group-toggle').click(function (){
+    // TODO
+  });
 });
+
+function sortByTop(a, b){
+
+}
+
+function sortByRecent(a, b){
+
+}
