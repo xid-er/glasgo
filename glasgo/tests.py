@@ -138,6 +138,14 @@ class PostTryExceptTests(TestCase):
             self.assertEqual((post.user_name == None), True, f"{FAILURE_HEADER}Post cannot have a Null user. {FAILURE_FOOTER}")
         except:
             pass
+        
+    def test_post_is_favourite_null(self):
+        try:
+            post = Post.objects.create(user_name = create_user_object(), is_favourite = None)
+            self.assertEqual((post.title == None), True, f"{FAILURE_HEADER}Post title cannot be Null. {FAILURE_FOOTER}")
+        except:
+            pass
+        
 
 
 class CommentTryExceptTests(TestCase):
