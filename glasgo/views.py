@@ -91,7 +91,6 @@ def show_post(request, post_number):
             is_favourite = Favourite.objects.filter(user=user, post=post)
             context_dict['is_liked'] = is_liked
             context_dict['is_favourite'] = is_favourite
-        post_type = post.post_type
 
         if request.method == 'POST':
             form = CommentForm(request.POST)
@@ -104,7 +103,13 @@ def show_post(request, post_number):
         comments = Comment.objects.filter(post=post).order_by('-comment_date_time')
         context_dict['comments'] = comments
         context_dict['form'] = form
-        context_dict['post_type'] = post_type
+        context_dict['post_type'] = post.post_type
+        context_dict['post_text'] = post.post_text
+        context_dict['post_category'] = post.post_category
+        context_dict['post_date_time'] = post.post_date_time
+        context_dict['post_picture'] = post.post_pic
+        context_dict['post_title'] = post.post_title
+
     except Post.DoesNotExist:
         return render(request, 'glasgo/')
 

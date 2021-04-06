@@ -6,6 +6,11 @@
 
 {% block body %}
     <div class="container">
+        {% if post_text %}
+        <div class="middle col-md-6">
+            {{ post.post_text }}
+        </div>
+
         <div class="middle col-md-6">
             {% block posts %}
                 {% if recent %}
