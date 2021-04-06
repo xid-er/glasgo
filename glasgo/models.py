@@ -35,7 +35,7 @@ class Post(models.Model):
 
     # attributes
     # https://towardsdatascience.com/build-a-social-media-website-with-django-feed-app-backend-part-4-d82facfa7b3
-    post_date_time = models.DateTimeField(default=timezone.now, blank=True)
+    post_date_time = models.DateTimeField(default=timezone.now)
     post_title = models.CharField(max_length=128)
     post_type = models.CharField(max_length=64)
 # https://stackoverflow.com/questions/16925129/generate-unique-id-in-django-from-a-model-field
@@ -48,7 +48,6 @@ class Post(models.Model):
 
     post_category = models.CharField(max_length=64)
     post_likes = models.PositiveIntegerField(default=0)
-    is_favorite = models.BooleanField(default=False) 
 
     def save(self, *args, **kwargs):
         self.request_id = str(uuid.uuid4().int)

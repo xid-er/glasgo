@@ -12,8 +12,25 @@
     <div class="col-md-2">
       <p>{{ MEDIA_URL }}{{ user_profile.picture }}</p>
       <img class="card-img-bottom"
-           src="{{ MEDIA_URL }}{{ user_profile.picture }}" alt="Profile Pic">
+           src="{{ MEDIA_URL }}{{ user_profile.picture }}"
+           alt="Profile Pic"
+           class="rounded-circle"
+           width="160px"
+           height="160px"
+      />
+      <p><strong>{{ user.username }}</strong></p>
+      <br />
+      <a href="/glasgo/user/<user_name>/edit/" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-edit"></span> Edit Profile
+      </a>
+      <br />
+      <p>Age: {{ user_profile.age }}</p>
+      <p>Occupation: {{ user_profile.occupation }}</p>
+      <p>University: {{ user_profile.university }}</p>
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block body %}
 {% endblock %}
