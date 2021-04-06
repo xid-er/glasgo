@@ -70,9 +70,9 @@ def populate():
 
     posts = [
         {'title': 'UofG looks like Hogwarts in the snow',
-         'post_pic': None,
-         'post_text': None,
-         'post_link': None,
+         'post_pic': '',
+         'post_text': '',
+         'post_link': '',
          'user': random.choice(user_list),
          'post_type': 'IMG',
          'likes': 42,
@@ -80,8 +80,8 @@ def populate():
          },
         {'title': 'Hot Milk is coming to Glasgow on June 14th.',
          'post_text': 'After 10 years we are coming back to our most favourite city in Glasgow! Special offer for first 10 customers: pay 2, get 3 drinks!',
-         'post_link': None,
-         'post_pic': None,
+         'post_link': '',
+         'post_pic': '',
          'user': random.choice(user_list),
          'post_type': 'TXT',
          'likes': 64,
@@ -89,8 +89,8 @@ def populate():
          },
         {'title': "There's new cafe opening up on Dumbarton",
          'post_text': 'I spotted this new spot while coming home from my lectures, it is super cute! Definitelly worth to stop by!',
-         'post_link': None,
-         'post_pic': None,
+         'post_link': '',
+         'post_pic': '',
          'user': random.choice(user_list),
          'post_type': 'TXT',
          'likes': 128,
@@ -98,8 +98,8 @@ def populate():
          },
         {'title': "Kilo Sale at Glasgow Green!",
          'post_text': 'Coming back with more clothes and accessories than ever before! This May, Kilo Sale will return to Glasgow and you do not want to miss it! Date TBD',
-         'post_link': None,
-         'post_pic': None,
+         'post_link': '',
+         'post_pic': '',
          'user': random.choice(user_list),
          'post_type': 'TXT',
          'likes': 5,
@@ -107,17 +107,17 @@ def populate():
          },
         {'title': "!!Annual Reggaeton Summer Festival Cancelled!!",
          'post_text': 'Due to a specific virus outbreak, we are sorry to announce that Reggaeton Festival is postponed for next year.',
-         'post_link': None,
-         'post_pic': None,
+         'post_link': '',
+         'post_pic': '',
          'user': random.choice(user_list),
          'post_type': 'TXT',
          'likes': 10,
          'post_category': 'EVE'
          },
         {'title': "Hot Milk is coming to Glasgow on June 14th!",
-         'post_link': urllib.request.urlopen('https://www.youtube.com/watch?v=dQw4w9WgXcQ'),
-         'post_text': None,
-         'post_pic': None,
+         'post_link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+         'post_text': '',
+         'post_pic': '',
          'user': random.choice(user_list),
          'post_type': 'URL',
          'likes': 420,
@@ -125,16 +125,12 @@ def populate():
          }
         ]
 
-
-
-
     for post in posts:
         add_post(post['user'], post['title'], post['post_type'], post['post_category'],
                  post['post_text'], post['post_link'], post['post_pic'],
                  post['likes'])
 
 # generate some example users with the random first name.
-
 
 def get_random_name(attribute):
     if attribute == "first":
