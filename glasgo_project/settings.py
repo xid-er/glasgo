@@ -27,7 +27,7 @@ SECRET_KEY = 't36#1(@+!e!r$e&u&k33ig$(klf(#g4i7eqw#e($h9m666bwvz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['holubok.pythonanywhere.com']
+ALLOWED_HOSTS = ['holubok.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
